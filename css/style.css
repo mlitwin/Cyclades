@@ -1,0 +1,16 @@
+.cycler {
+
+}
+
+.cycler td {
+	width: 10px;
+	height: 10px;
+	border: 1px solid black;
+}
+
+.cycler td.cycleStart {
+	background-color: gold;
+}
+.cycler td.cycleEnd {
+	background-color: gold;
+}
