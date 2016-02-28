@@ -42,7 +42,7 @@
 		$parentNode.empty().append($table);	
 
 		return {
-			length: length,
+			maxIndex: length - 1,
 			cycleEnd: c0,
 			cycleStart: c1
 		};
@@ -60,7 +60,45 @@
 	});
 
 	window.Cycler = {
-		resetTable: resetTable
+		resetTable: resetTable,
+		nextElement: function(cur, model) {
+			var next;
+			if( cur === model.cycleStart) {
+				next = model.cycleEnd;
+			} else {
+				next = cur + 1;
+			}
+
+			if( next > model.maxIndex) {
+				next = model.maxIndex;
+			}
+
+			return next;
+		},
+		animate($table, tortice, hair) {
+			var torticeIndex = 0;
+
+			function clearPlayer(player) {
+				$("td." + player, $table[0]).removeClass(player);
+			}
+
+			$("td.tortice", $table[0]).removeClass("tortice");
+
+
+			function displayCurrentFrame() {
+				var domIndex = tortice[torticeIndex];
+
+				clearPlayer("tortice");
+
+				$("td.index-" + domIndex, $table[0]).addClass("tortice");
+				torticeIndex++;
+				if( torticeIndex < tortice.length) {
+					window.setTimeout(displayCurrentFrame, 50);
+				}
+			}
+
+			displayCurrentFrame();
+		}
 	};
 
 })(jQuery);
@@ -70,5 +108,22 @@
 		$(".cycler").each(function() {
 			Cycler.resetTable($(this));
 		});		
-	})
+	});
+
+	$("#cycleGo").click(function() {
+		$(".cycler").each(function() {
+			var $self = $(this);
+			var model = $self.data("cycleData");
+			var anim = [];
+			var i, cur = 0;
+			for(i = 0; i <= model.maxIndex; i++) {
+				anim.push(cur);
+				cur = Cycler.nextElement(cur, model);
+			}
+
+			Cycler.animate($self, anim);
+
+		});		
+	});
+
 })(jQuery);
