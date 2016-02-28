@@ -6,7 +6,7 @@
 		return Math.floor(Math.random() * length);
 	}
 
-	$(".cycler").each(function() {
+	function resetTableDOM($parentNode) {
 		var i, j, k, tmp;
 		var c0 = randIndex(), c1 = randIndex();
 
@@ -25,6 +25,10 @@
 			for( i = 0; i < N; i++) {
 				$td = $("<td></td>");
 				$row.append($td);
+
+				$td.addClass("index-" + k);
+
+
 				if( k === c0) {
 					$td.addClass("cycleEnd");
 				}
@@ -35,6 +39,36 @@
 			}
 		}
 
-		$(this).empty().append($table);
+		$parentNode.empty().append($table);	
+
+		return {
+			length: length,
+			cycleEnd: c0,
+			cycleStart: c1
+		};
+	}
+
+	function resetTable($cycler) {
+		var cycleData;
+
+		cycleData = resetTableDOM($cycler);
+		$cycler.data("cycleData", cycleData);		
+	}
+
+	$(".cycler").each(function() {
+		resetTable($(this));
 	});
+
+	window.Cycler = {
+		resetTable: resetTable
+	};
+
+})(jQuery);
+
+(function($) {
+	$("#cycleReset").click(function() {
+		$(".cycler").each(function() {
+			Cycler.resetTable($(this));
+		});		
+	})
 })(jQuery);
