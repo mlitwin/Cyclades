@@ -8,7 +8,7 @@
  *  $parentNode.data("cycleData"); and then implement the algorithm using
  *  Cycler.nextElement(cur, model) to get the next index.
  *
- *  Collect your sequence in anim = [ {tortice: index, hair: index}, ...] and
+ *  Collect your sequence in anim = [ {tortice: index, hare: index}, ...] and
  *  call Cycler.animate($parentNode, anim); to get the visuals
  *
 */
@@ -132,7 +132,7 @@
 			var anim = [];
 			var i, cur = 0;
 			for(i = 0; i <= model.maxIndex; i++) {
-				anim.push({tortice: cur, hair: cur});
+				anim.push({tortice: cur, hare: cur});
 				cur = Cycler.nextElement(cur, model);
 			}
 
