@@ -75,24 +75,24 @@
 
 			return next;
 		},
-		animate($table, tortice, hair) {
-			var torticeIndex = 0;
+		animate($table, itinerary) {
+			var curIndex = 0;
 
 			function clearPlayer(player) {
 				$("td." + player, $table[0]).removeClass(player);
 			}
 
-			$("td.tortice", $table[0]).removeClass("tortice");
-
-
 			function displayCurrentFrame() {
-				var domIndex = tortice[torticeIndex];
+				var domIndexes = itinerary[curIndex];
+				var player;
 
-				clearPlayer("tortice");
+				for(player in domIndexes) {
+					clearPlayer(player);
+					$("td.index-" + domIndexes[player], $table[0]).addClass(player);
+				}
 
-				$("td.index-" + domIndex, $table[0]).addClass("tortice");
-				torticeIndex++;
-				if( torticeIndex < tortice.length) {
+				curIndex++;
+				if( curIndex < itinerary.length) {
 					window.setTimeout(displayCurrentFrame, 50);
 				}
 			}
@@ -117,7 +117,7 @@
 			var anim = [];
 			var i, cur = 0;
 			for(i = 0; i <= model.maxIndex; i++) {
-				anim.push(cur);
+				anim.push({tortice: cur, hair: cur});
 				cur = Cycler.nextElement(cur, model);
 			}
 
