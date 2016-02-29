@@ -97,7 +97,7 @@
 			return next;
 		},
 		// Run our animation of the itinerary
-		animate($table, itinerary) {
+		animate: function($table, itinerary) {
 			var curIndex = 0;
 
 			function clearPlayer(player) {
