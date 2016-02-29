@@ -1,3 +1,18 @@
+/*
+ *	Visualization of cycle detection algorithms.
+ *
+ *	Display our list as an N x N grid, with a standard ordering,
+ *  and choose at which element the cycle starts, and where you go from there.
+ *
+ *  Your cycle detection algorithm would get the model level info from the
+ *  $parentNode.data("cycleData"); and then implement the algorithm using
+ *  Cycler.nextElement(cur, model) to get the next index.
+ *
+ *  Collect your sequence in anim = [ {tortice: index, hair: index}, ...] and
+ *  call Cycler.animate($parentNode, anim); to get the visuals
+ *
+*/
+
 (function($) {
 	var N = 10,
 		length = N*N;
