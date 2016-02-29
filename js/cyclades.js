@@ -23,16 +23,18 @@
 
 	function resetTableDOM($parentNode) {
 		var i, j, k, tmp;
-		var c0 = randIndex(), c1 = randIndex();
+		var c0 = randIndex(), c1 = randIndex(); // cycle goes from c1 -> c0
 
 		var $table = $("<table></table>"),
 			$row,
 			$td;
 
+		// normalize to c0 <= c1 
 		if( c0 > c1) {
-			tmp = c0; c0 = c1; c1 = tmp; // swap c0 and c1
+			tmp = c0; c0 = c1; c1 = tmp;
 		}
 
+		// lay out an N x N table
 		k = 0;
 		for( j = 0; j < N; j++) {
 			$row = $("<tr></tr>");
@@ -41,9 +43,11 @@
 				$td = $("<td></td>");
 				$row.append($td);
 
+				// .index-k
 				$td.addClass("index-" + k);
 
 
+				// and .cycleEnd / .cycleStart class
 				if( k === c0) {
 					$td.addClass("cycleEnd");
 				}
@@ -76,6 +80,7 @@
 
 	window.Cycler = {
 		resetTable: resetTable,
+		// next element is element + 1, unless we're looping at a cycle
 		nextElement: function(cur, model) {
 			var next;
 			if( cur === model.cycleStart) {
@@ -84,12 +89,14 @@
 				next = cur + 1;
 			}
 
+			// arbitrary condition to ensure nextElement is a valid element.
 			if( next > model.maxIndex) {
 				next = model.maxIndex;
 			}
 
 			return next;
 		},
+		// Run our animation of the itinerary
 		animate($table, itinerary) {
 			var curIndex = 0;
 
