@@ -23,6 +23,43 @@
 		return anim;	
 	}
 
+	function floyd(model) {
+		var anim = [];
+		var tortice, hare;
+		var mu, lam;
+
+		function adv(v) {
+			return Cycler.nextElement(v, model);
+		}
+
+		function atPosition(t, h) {
+			tortice = t;
+			hare = h;
+			anim.push({tortice: tortice, hare: hare});
+		}
+
+		atPosition(0, 0);
+		atPosition(adv(tortice), adv(adv(hare)));
+
+		while(tortice !== hare) {
+			atPosition(adv(tortice), adv(adv(hare)));
+		}
+
+		mu = 0;
+		atPosition(0, hare);
+		while( tortice !== hare) {
+			atPosition(adv(tortice), adv(hare));
+		}
+
+		lam = 1;
+		atPosition(tortice, adv(tortice));
+		while( tortice !== hare) {
+			atPosition(tortice, adv(hare));
+		}
+
+		return anim;
+	}
+
 	$("#cycleGo").click(function() {
 		$(".cycler").each(function() {
 			var $self = $(this);
@@ -33,5 +70,16 @@
 
 		});		
 	});
+
+	$("#floyd").click(function() {
+		$(".cycler").each(function() {
+			var $self = $(this);
+			var model = $self.data("cycleData");
+			var anim = floyd(model);
+
+			Cycler.animate($self, anim);
+
+		});		
+	});	
 
 })(jQuery);
