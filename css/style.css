@@ -18,3 +18,13 @@
 .cycler td.tortice {
 	background-color: green;
 }
+
+.cycler td.hare {
+	background-color: saddlebrown;
+}
+
+
+.cycler td.hare {
+	background: linear-gradient(135deg, green, saddlebrown);
+}
+
