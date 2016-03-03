@@ -24,12 +24,13 @@
 	function resetTableDOM($parentNode) {
 		var i, j, k, tmp;
 		var c0 = randIndex(), c1 = randIndex(); // cycle goes from c1 -> c0
+		var $cycleParent = $('<div class="cycleParent"></div>');
 
 		var $table = $("<table></table>"),
 			$row,
 			$td;
 
-		// normalize to c0 <= c1 
+		// normalize to c0 <= c1
 		if( c0 > c1) {
 			tmp = c0; c0 = c1; c1 = tmp;
 		}
@@ -52,13 +53,18 @@
 					$td.addClass("cycleEnd");
 				}
 				if( k === c1) {
-					$td.addClass("cycleStart");					
+					$td.addClass("cycleStart");
 				}
 				k++;
 			}
 		}
 
-		$parentNode.empty().append($table);	
+		$cycleParent.append($table);
+		$cycleParent.append('<div class="cycleResults"><span class="cycleStartLabel">Start:</span> ' +
+			'<span class="cycleStart">&nbsp;</span> <span class="cycleLengthLabel">Length:</span>' +
+			'<span class="cycleLen">&nbsp;</span></div>');
+
+		$parentNode.empty().append($cycleParent);
 
 		return {
 			maxIndex: length - 1,
@@ -71,7 +77,7 @@
 		var cycleData;
 
 		cycleData = resetTableDOM($cycler);
-		$cycler.data("cycleData", cycleData);		
+		$cycler.data("cycleData", cycleData);
 	}
 
 	$(".cycler").each(function() {
@@ -97,8 +103,10 @@
 			return next;
 		},
 		// Run our animation of the itinerary
-		animate: function($table, itinerary) {
+		animate: function($parentNode, itinerary) {
 			var curIndex = 0;
+			var $cycleParent = $parentNode.children(".cycleParent");
+			var $table = $cycleParent.children("table");
 
 			function clearPlayer(player) {
 				$("td." + player, $table[0]).removeClass(player);
@@ -106,11 +114,19 @@
 
 			function displayCurrentFrame() {
 				var domIndexes = itinerary[curIndex];
-				var player;
 
-				for(player in domIndexes) {
-					clearPlayer(player);
-					$("td.index-" + domIndexes[player], $table[0]).addClass(player);
+				function setPlayer(player) {
+					if(player in domIndexes) {
+						clearPlayer(player);
+						$("td.index-" + domIndexes[player], $table[0]).addClass(player);
+					}
+				}
+
+				setPlayer("tortice");
+				setPlayer("hare");
+
+				if( "mode" in domIndexes) {
+					 $cycleParent.addClass(domIndexes.mode);
 				}
 
 				curIndex++;
@@ -124,4 +140,3 @@
 	};
 
 })(jQuery);
-

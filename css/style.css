@@ -1,30 +1,44 @@
-.cycler {
-
+.cycleParent .cycleLengthLabel {
+	border: 1px solid transparent;
 }
 
-.cycler td {
+.cycleParent .cycleStartLabel {
+	border: 1px solid transparent;
+}
+
+.cycleParent.cycle .cycleLengthLabel {
+	border: 1px solid yellow;
+}
+
+.cycleParent.minCycle .cycleLengthLabel {
+	border: 1px solid green;
+}
+
+.cycleParent.cycleStart .cycleStartLabel {
+	border: 1px solid green;
+}
+
+.cycleParent td {
 	width: 10px;
 	height: 10px;
 	border: 1px solid black;
 }
 
-.cycler td.cycleStart {
+.cycleParent td.cycleStart {
 	background-color: gold;
 }
-.cycler td.cycleEnd {
+.cycleParent td.cycleEnd {
 	background-color: gold;
 }
 
-.cycler td.tortice {
+.cycleParent td.tortice {
 	background-color: green;
 }
 
-.cycler td.hare {
+.cycleParent td.hare {
 	background-color: saddlebrown;
 }
 
-
-.cycler td.hare {
+.cycleParent td.hare {
 	background: linear-gradient(135deg, green, saddlebrown);
 }
-

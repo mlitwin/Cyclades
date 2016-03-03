@@ -8,7 +8,7 @@
 	$("#cycleReset").click(function() {
 		$(".cycler").each(function() {
 			Cycler.resetTable($(this));
-		});		
+		});
 	});
 
 	// tortice and hare just run together - testing the animation code.
@@ -20,7 +20,7 @@
 			cur = Cycler.nextElement(cur, model);
 		}
 
-		return anim;	
+		return anim;
 	}
 
 	function floyd(model) {
@@ -32,29 +32,29 @@
 			return Cycler.nextElement(v, model);
 		}
 
-		function atPosition(t, h) {
+		function atPosition(t, h, mode) {
 			tortice = t;
 			hare = h;
-			anim.push({tortice: tortice, hare: hare});
+			anim.push({'tortice': tortice, 'hare': hare, 'mode': mode});
 		}
 
-		atPosition(0, 0);
+		atPosition(0, 0, "cycle");
 		atPosition(adv(tortice), adv(adv(hare)));
 
 		while(tortice !== hare) {
-			atPosition(adv(tortice), adv(adv(hare)));
+			atPosition(adv(tortice), adv(adv(hare)), "cycle");
 		}
 
 		mu = 0;
 		atPosition(0, hare);
 		while( tortice !== hare) {
-			atPosition(adv(tortice), adv(hare));
+			atPosition(adv(tortice), adv(hare), "minCycle");
 		}
 
 		lam = 1;
 		atPosition(tortice, adv(tortice));
 		while( tortice !== hare) {
-			atPosition(tortice, adv(hare));
+			atPosition(tortice, adv(hare), "cycleStart");
 		}
 
 		return anim;
@@ -68,7 +68,7 @@
 
 			Cycler.animate($self, anim);
 
-		});		
+		});
 	});
 
 	$("#floyd").click(function() {
@@ -79,7 +79,7 @@
 
 			Cycler.animate($self, anim);
 
-		});		
-	});	
+		});
+	});
 
 })(jQuery);
