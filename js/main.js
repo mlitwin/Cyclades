@@ -70,6 +70,33 @@
 		return c.anim;
 	}
 
+	function brent(c) {
+		var mu, lam;
+		var width;
+		// Convenience wrapper
+		function adv(v) { return c.nextElement(v); }
+
+		c.changePhase( "minCycle");
+		c.atPosition(0, 0);
+		c.atPosition(c.tortice, adv(c.hare));
+
+		lam = 0; width = 1;
+		while(c.tortice !== c.hare) {
+			// looking for cycle
+			if( lam < width) {
+				c.atPosition(c.tortice, adv(c.hare));
+				lam++;
+			} else { // advance tortice to hair and look again
+				c.atPosition(c.hare, adv(c.hare));
+				lam = 0;
+				width *= 2;
+			}
+		}
+		c.foundData("minCycle", lam);
+
+		return c.anim;
+	}
+
 	$("#cycleGo").click(function() {
 		$(".cycler").each(function() {
 			var $self = $(this);
@@ -84,6 +111,16 @@
 		$(".cycler").each(function() {
 			var $self = $(this);
 			var anim = floyd( Cycler.createAlgorithmModel($self));
+
+			Cycler.animate($self, anim);
+
+		});
+	});
+
+	$("#brent").click(function() {
+		$(".cycler").each(function() {
+			var $self = $(this);
+			var anim = brent( Cycler.createAlgorithmModel($self));
 
 			Cycler.animate($self, anim);
 
