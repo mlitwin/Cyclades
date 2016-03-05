@@ -16,7 +16,8 @@
 		// Convenience wrapper
 		function adv(v) { return c.nextElement(v); }
 
-		c.atPosition(0, 0, "runningMindlessly");
+		c.changePhase( "runningMindlessly");
+		c.atPosition(0, 0);
 		for(i = 0; i <= c.model.maxIndex; i++) {
 			c.atPosition(adv(c.tortice), adv(c.hare));
 		}
@@ -29,7 +30,8 @@
 		// Convenience wrapper
 		function adv(v) { return c.nextElement(v); }
 
-		c.atPosition(0, 0, "cycleMultiple");
+		c.changePhase( "cycleMultiple");
+		c.atPosition(0, 0);
 		c.atPosition(adv(c.tortice), adv(adv(c.hare)));
 
 		lam = 1;
@@ -40,7 +42,9 @@
 		c.foundData("cycleMultiple", lam - 1);
 
 		mu = 0;
-		c.atPosition(0, c.hare, "cycleStart");
+
+		c.changePhase( "cycleStart");
+		c.atPosition(0, c.hare);
 		while( c.tortice !== c.hare) {
 			c.atPosition(adv(c.tortice), adv(c.hare));
 			mu++;
@@ -50,7 +54,8 @@
 
 
 		lam = 1;
-		c.atPosition(c.tortice, adv(c.tortice), "minCycle");
+		c.changePhase( "minCycle");
+		c.atPosition(c.tortice, adv(c.tortice));
 		while( c.tortice !== c.hare) {
 			c.atPosition(c.tortice, adv(c.hare));
 			lam++;

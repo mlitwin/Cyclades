@@ -174,13 +174,13 @@
 			nextElement: function(v) {
 				return nextElement(v, this.model);
 			},
-			atPosition: function(t, h, phase) {
+			changePhase: function(phase) {
+					this.anim.push({'event': 'phase', 'phase': phase});
+			},
+			atPosition: function(t, h) {
 				this.tortice = t;
 				this.hare = h;
 				this.anim.push({'event': 'move', 'tortice': this.tortice, 'hare': this.hare});
-				if( phase) {
-						this.anim.push({'event': 'phase', 'phase': phase});
-				}
 			},
 			foundData: function(name, value) {
 				this.anim.push({'event': 'foundData', 'name': name, 'value': value});
