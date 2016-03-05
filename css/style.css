@@ -1,22 +1,3 @@
-.cycleParent .cycleResults .cycleLengthLabel {
-	border: 1px solid transparent;
-}
-
-.cycleParent .cycleResults .cycleStartLabel {
-	border: 1px solid transparent;
-}
-
-.cycleParent.cycle .cycleResults .cycleLengthLabel {
-	border: 1px solid yellow;
-}
-
-.cycleParent.minCycle .cycleResults .cycleLengthLabel {
-	border: 1px solid green;
-}
-
-.cycleParent.cycleStart .cycleResults .cycleStartLabel {
-	border: 1px solid green;
-}
 
 .cycleParent td {
 	width: 10px;

@@ -60,9 +60,9 @@
 		}
 
 		$cycleParent.append($table);
-		$cycleParent.append('<div class="cycleResults"><span class="cycleStartLabel">Start:</span> ' +
+		$cycleParent.append('<div class="cycleResults"><div><span class="cycleStartLabel">Start:</span> ' +
 			'<span class="cycleStart">&nbsp;</span> <span class="cycleLengthLabel">Length:</span>' +
-			'<span class="cycleLength">&nbsp;</span></div>');
+			'<span class="cycleLength">&nbsp;</span><div><div><span class="curPhaseLabel">Seeking: </span><span class="curPhase">&nbsp;</span></div></div>');
 
 		$parentNode.empty().append($cycleParent);
 
@@ -146,6 +146,7 @@
 					 }
 					 $cycleParent.addClass(curEvent.phase);
 					 curPhase = curEvent.phase;
+					 $cycleParent.find(".cycleResults .curPhase").text(curPhase);
 				} else if(curEvent.event === 'foundData') {
 					handleFoundData(curEvent);
 				}
