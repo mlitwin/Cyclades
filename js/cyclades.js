@@ -102,28 +102,27 @@
 
 			return next;
 		},
+		// our player has moved to a new index
+		setPlayerCell: function($table, player, index) {
+				$("td." + player, $table[0]).removeClass(player);
+				if( undefined !== index) {
+						$("td.index-" + index, $table[0]).addClass(player);
+				}
+		},
 		// Run our animation of the itinerary
 		animate: function($parentNode, itinerary) {
 			var curIndex = 0;
 			var $cycleParent = $parentNode.children(".cycleParent");
 			var $table = $cycleParent.children("table");
-
-			function clearPlayer(player) {
-				$("td." + player, $table[0]).removeClass(player);
-			}
+			var self = this;
 
 			function displayCurrentFrame() {
 				var domIndexes = itinerary[curIndex];
 
-				function setPlayer(player) {
-					if(player in domIndexes) {
-						clearPlayer(player);
-						$("td.index-" + domIndexes[player], $table[0]).addClass(player);
-					}
-				}
+				["tortice", "hare"].forEach(function(player) {
+						self.setPlayerCell($table, player, domIndexes[player]);
+				});
 
-				setPlayer("tortice");
-				setPlayer("hare");
 
 				if( "mode" in domIndexes) {
 					 $cycleParent.addClass(domIndexes.mode);
