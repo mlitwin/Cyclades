@@ -32,10 +32,13 @@
 			return Cycler.nextElement(v, model);
 		}
 
-		function atPosition(t, h, mode) {
+		function atPosition(t, h, phase) {
 			tortice = t;
 			hare = h;
-			anim.push({'tortice': tortice, 'hare': hare, 'mode': mode});
+			anim.push({'event': 'move', 'tortice': tortice, 'hare': hare});
+			if( phase) {
+					anim.push({'event': 'phase',  'phase': phase});
+			}
 		}
 
 		atPosition(0, 0, "cycle");
@@ -43,29 +46,29 @@
 
 		lam = 1;
 		while(tortice !== hare) {
-			atPosition(adv(tortice), adv(adv(hare)), "cycle");
+			atPosition(adv(tortice), adv(adv(hare)));
 			lam++;
 		}
 
-		anim[anim.length -1].cycleLength = lam;
+		anim[anim.length -1].cycleLength = lam - 1;
 
 
 		mu = 0;
-		atPosition(0, hare);
+		atPosition(0, hare, "cycleStart");
 		while( tortice !== hare) {
-			atPosition(adv(tortice), adv(hare), "cycleStart");
+			atPosition(adv(tortice), adv(hare));
 			mu++;
 		}
 		anim[anim.length -1].cycleStart = mu;
 
 
 		lam = 1;
-		atPosition(tortice, adv(tortice));
+		atPosition(tortice, adv(tortice), "minCycle");
 		while( tortice !== hare) {
-			atPosition(tortice, adv(hare), "minCycle");
+			atPosition(tortice, adv(hare));
 			lam++;
 		}
-		anim[anim.length -1].cycleLength = lam;
+		anim[anim.length -1].cycleLength = lam - 1;
 
 		return anim;
 	}

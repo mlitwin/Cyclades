@@ -119,13 +119,12 @@
 			function displayCurrentFrame() {
 				var domIndexes = itinerary[curIndex];
 
-				["tortice", "hare"].forEach(function(player) {
-						self.setPlayerCell($table, player, domIndexes[player]);
-				});
-
-
-				if( "mode" in domIndexes) {
-					 $cycleParent.addClass(domIndexes.mode);
+				if( domIndexes.event === 'move') {
+					["tortice", "hare"].forEach(function(player) {
+							self.setPlayerCell($table, player, domIndexes[player]);
+					});
+				} else if(domIndexes.event === 'phase') {
+					 $cycleParent.addClass(domIndexes.phase);
 				}
 
 				if("cycleStart" in domIndexes) {
