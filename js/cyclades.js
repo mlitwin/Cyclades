@@ -123,9 +123,9 @@
 				var $targets;
 
 
-				if( targetDomClass === 'cycleMultiple' || targetDomClass === 'minCycle') {
+				if( event.name === 'cycleMultiple' || event.name === 'minCycle') {
 					targetDomClass = 'cycleLength';
-					preliminaryData = targetDomClass === 'cycleMultiple';
+					preliminaryData = (event.name === 'cycleMultiple');
 				}
 
 				$targets = $cycleParent.find(".cycleResults ." + targetDomClass);

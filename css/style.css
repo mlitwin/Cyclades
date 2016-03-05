@@ -23,3 +23,15 @@
 .cycleParent td.hare.tortice {
 	background: linear-gradient(135deg, green, saddlebrown);
 }
+
+
+.cycleResults .hasData {
+	border: 1px solid green;
+	padding: 0px 3px;
+}
+
+.cycleResults .hasData.preliminaryData {
+	border-color: black;
+	border-style: dashed;
+	color: gray;
+}

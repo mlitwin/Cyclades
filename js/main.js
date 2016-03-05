@@ -37,7 +37,7 @@
 			hare = h;
 			anim.push({'event': 'move', 'tortice': tortice, 'hare': hare});
 			if( phase) {
-					anim.push({'event': 'phase',  'phase': phase});
+					anim.push({'event': 'phase', 'phase': phase});
 			}
 		}
 
@@ -45,7 +45,7 @@
 				anim.push({'event': 'foundData', 'name': name, 'value': value});
 		}
 
-		atPosition(0, 0, "cycle");
+		atPosition(0, 0, "cycleMultiple");
 		atPosition(adv(tortice), adv(adv(hare)));
 
 		lam = 1;
