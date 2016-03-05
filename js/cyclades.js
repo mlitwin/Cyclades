@@ -171,7 +171,7 @@
 
 	window.Cycler.createAlgorithmModel = function($cycler) {
 		var amPrototype = {
-			adv: function(v) {
+			nextElement: function(v) {
 				return nextElement(v, this.model);
 			},
 			atPosition: function(t, h, phase) {
