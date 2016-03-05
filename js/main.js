@@ -71,7 +71,7 @@
 	$("#floyd").click(function() {
 		$(".cycler").each(function() {
 			var $self = $(this);
-			var anim = floyd( ycler.createAlgorithmModel($self));
+			var anim = floyd( Cycler.createAlgorithmModel($self));
 
 			Cycler.animate($self, anim);
 
