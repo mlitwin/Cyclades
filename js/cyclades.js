@@ -24,6 +24,13 @@
 		return Math.floor(Math.random() * length);
 	}
 
+	function resetResultsDOM($cycleParent) {
+		$cycleParent.find(".cycleResults").empty().html('<div><span class="cycleStartLabel">Start:</span> ' +
+			'<span class="cycleStart">&nbsp;</span> <span class="cycleLengthLabel">Length:</span>' +
+			'<span class="cycleLength">&nbsp;</span><div><div><span class="curPhaseLabel">Seeking: </span><span class="curPhase">&nbsp;</span></div>');
+
+	}
+
 	function resetTableDOM($parentNode) {
 		var i, j, k, tmp;
 		var c0 = randIndex(), c1 = randIndex(); // cycle goes from c1 -> c0
@@ -63,9 +70,8 @@
 		}
 
 		$cycleParent.append($table);
-		$cycleParent.append('<div class="cycleResults"><div><span class="cycleStartLabel">Start:</span> ' +
-			'<span class="cycleStart">&nbsp;</span> <span class="cycleLengthLabel">Length:</span>' +
-			'<span class="cycleLength">&nbsp;</span><div><div><span class="curPhaseLabel">Seeking: </span><span class="curPhase">&nbsp;</span></div></div>');
+		$cycleParent.append('<div class="cycleResults"></div>');
+		resetResultsDOM($cycleParent);
 
 		$parentNode.empty().append($cycleParent);
 
@@ -143,6 +149,7 @@
 
 			function displayCurrentFrame() {
 				var curEvent = itinerary[curIndex];
+				var delay = 50;
 
 				if( curEvent.event === 'move') {
 					["tortice", "hare"].forEach(function(player) {
@@ -155,13 +162,14 @@
 					 $cycleParent.addClass(curEvent.phase);
 					 curPhase = curEvent.phase;
 					 $cycleParent.find(".cycleResults .curPhase").text(curPhase);
+					 delay = 150;
 				} else if(curEvent.event === 'foundData') {
 					handleFoundData(curEvent);
 				}
 
 				curIndex++;
 				if( curIndex < itinerary.length) {
-					window.setTimeout(displayCurrentFrame, 50);
+					window.setTimeout(displayCurrentFrame, delay);
 				}
 			}
 
@@ -193,6 +201,8 @@
 		ret.tortice = undefined;
 		ret.hare = undefined;
 		ret.anim = [];
+
+		resetResultsDOM($cycler);
 
 		return ret;
 	};
