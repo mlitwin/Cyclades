@@ -13,13 +13,18 @@
 
 	// tortice and hare just run together - testing the animation code.
 	function runrunrunaround(c) {
+		var hare;
 		// Convenience wrapper
 		function adv(v) { return c.nextElement(v); }
 
 		c.changePhase( "runningMindlessly");
 		c.atPosition(0, 0);
 		for(i = 0; i <= c.model.maxIndex; i++) {
-			c.atPosition(adv(c.tortice), adv(c.hare));
+			hare = adv(c.hare);
+			if(Math.random() < 0.5) {
+				hare = adv(hare);
+			}
+			c.atPosition(adv(c.tortice), hare);
 		}
 
 		return c.anim;
