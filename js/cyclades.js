@@ -62,7 +62,7 @@
 		$cycleParent.append($table);
 		$cycleParent.append('<div class="cycleResults"><span class="cycleStartLabel">Start:</span> ' +
 			'<span class="cycleStart">&nbsp;</span> <span class="cycleLengthLabel">Length:</span>' +
-			'<span class="cycleLen">&nbsp;</span></div>');
+			'<span class="cycleLength">&nbsp;</span></div>');
 
 		$parentNode.empty().append($cycleParent);
 
@@ -127,6 +127,14 @@
 
 				if( "mode" in domIndexes) {
 					 $cycleParent.addClass(domIndexes.mode);
+				}
+
+				if("cycleStart" in domIndexes) {
+					$cycleParent.find(".cycleResults .cycleStart").text(domIndexes.cycleStart);
+				}
+
+				if("cycleLength" in domIndexes) {
+					$cycleParent.find(".cycleResults .cycleLength").text(domIndexes.cycleLength);
 				}
 
 				curIndex++;

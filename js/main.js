@@ -41,21 +41,31 @@
 		atPosition(0, 0, "cycle");
 		atPosition(adv(tortice), adv(adv(hare)));
 
+		lam = 1;
 		while(tortice !== hare) {
 			atPosition(adv(tortice), adv(adv(hare)), "cycle");
+			lam++;
 		}
+
+		anim[anim.length -1].cycleLength = lam;
+
 
 		mu = 0;
 		atPosition(0, hare);
 		while( tortice !== hare) {
-			atPosition(adv(tortice), adv(hare), "minCycle");
+			atPosition(adv(tortice), adv(hare), "cycleStart");
+			mu++;
 		}
+		anim[anim.length -1].cycleStart = mu;
+
 
 		lam = 1;
 		atPosition(tortice, adv(tortice));
 		while( tortice !== hare) {
-			atPosition(tortice, adv(hare), "cycleStart");
+			atPosition(tortice, adv(hare), "minCycle");
+			lam++;
 		}
+		anim[anim.length -1].cycleLength = lam;
 
 		return anim;
 	}
