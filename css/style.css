@@ -39,6 +39,6 @@
 	background-color: saddlebrown;
 }
 
-.cycleParent td.hare {
+.cycleParent td.hare.tortice {
 	background: linear-gradient(135deg, green, saddlebrown);
 }
