@@ -112,27 +112,42 @@
 		// Run our animation of the itinerary
 		animate: function($parentNode, itinerary) {
 			var curIndex = 0;
+			var curPhase = "";
 			var $cycleParent = $parentNode.children(".cycleParent");
 			var $table = $cycleParent.children("table");
 			var self = this;
 
+			function handleFoundData(event) {
+				var targetDomClass = event.name;
+				var preliminaryData = false;
+				var $targets;
+
+
+				if( targetDomClass === 'cycleMultiple' || targetDomClass === 'minCycle') {
+					targetDomClass = 'cycleLength';
+					preliminaryData = targetDomClass === 'cycleMultiple';
+				}
+
+				$targets = $cycleParent.find(".cycleResults ." + targetDomClass);
+
+				$targets.text(event.value).toggleClass("preliminaryData", preliminaryData).addClass("hasData");
+			}
+
 			function displayCurrentFrame() {
-				var domIndexes = itinerary[curIndex];
+				var curEvent = itinerary[curIndex];
 
-				if( domIndexes.event === 'move') {
+				if( curEvent.event === 'move') {
 					["tortice", "hare"].forEach(function(player) {
-							self.setPlayerCell($table, player, domIndexes[player]);
+							self.setPlayerCell($table, player, curEvent[player]);
 					});
-				} else if(domIndexes.event === 'phase') {
-					 $cycleParent.addClass(domIndexes.phase);
-				}
-
-				if("cycleStart" in domIndexes) {
-					$cycleParent.find(".cycleResults .cycleStart").text(domIndexes.cycleStart);
-				}
-
-				if("cycleLength" in domIndexes) {
-					$cycleParent.find(".cycleResults .cycleLength").text(domIndexes.cycleLength);
+				} else if(curEvent.event === 'phase') {
+					 if(curPhase) {
+						 $cycleParent.removeClass(curPhase);
+					 }
+					 $cycleParent.addClass(curEvent.phase);
+					 curPhase = curEvent.phase;
+				} else if(curEvent.event === 'foundData') {
+					handleFoundData(curEvent);
 				}
 
 				curIndex++;

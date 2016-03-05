@@ -41,6 +41,10 @@
 			}
 		}
 
+		function foundData(name, value) {
+				anim.push({'event': 'foundData', 'name': name, 'value': value});
+		}
+
 		atPosition(0, 0, "cycle");
 		atPosition(adv(tortice), adv(adv(hare)));
 
@@ -50,7 +54,8 @@
 			lam++;
 		}
 
-		anim[anim.length -1].cycleLength = lam - 1;
+		foundData("cycleMultiple", lam - 1);
+	//	anim[anim.length -1].cycleLength = lam - 1;
 
 
 		mu = 0;
@@ -59,7 +64,10 @@
 			atPosition(adv(tortice), adv(hare));
 			mu++;
 		}
-		anim[anim.length -1].cycleStart = mu;
+
+		foundData("cycleStart", mu);
+
+	//	anim[anim.length -1].cycleStart = mu;
 
 
 		lam = 1;
@@ -68,7 +76,10 @@
 			atPosition(tortice, adv(hare));
 			lam++;
 		}
-		anim[anim.length -1].cycleLength = lam - 1;
+
+		foundData("minCycle", lam - 1);
+
+	//	anim[anim.length -1].cycleLength = lam - 1;
 
 		return anim;
 	}
