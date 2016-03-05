@@ -12,15 +12,13 @@
 	});
 
 	// tortice and hare just run together - testing the animation code.
-	function runrunrunaround(model) {
-		var anim = [];
-		var i, cur = 0;
-		for(i = 0; i <= model.maxIndex; i++) {
-			anim.push({tortice: cur, hare: cur});
-			cur = Cycler.nextElement(cur, model);
+	function runrunrunaround(c) {
+		c.atPosition(0, 0, "runningMindlessly");
+		for(i = 0; i <= c.model.maxIndex; i++) {
+			c.atPosition(c.adv(c.tortice), c.adv(c.hare));
 		}
 
-		return anim;
+		return c.anim;
 	}
 
 	function floyd(c) {
@@ -37,8 +35,6 @@
 		}
 
 		c.foundData("cycleMultiple", lam - 1);
-	//	anim[anim.length -1].cycleLength = lam - 1;
-
 
 		mu = 0;
 		c.atPosition(0, c.hare, "cycleStart");
@@ -48,8 +44,6 @@
 		}
 
 		c.foundData("cycleStart", mu);
-
-	//	anim[anim.length -1].cycleStart = mu;
 
 
 		lam = 1;
@@ -61,16 +55,13 @@
 
 		c.foundData("minCycle", lam - 1);
 
-	//	anim[anim.length -1].cycleLength = lam - 1;
-
 		return c.anim;
 	}
 
 	$("#cycleGo").click(function() {
 		$(".cycler").each(function() {
 			var $self = $(this);
-			var model = $self.data("cycleData");
-			var anim = runrunrunaround(model);
+			var anim = runrunrunaround(Cycler.createAlgorithmModel($self));
 
 			Cycler.animate($self, anim);
 
@@ -80,7 +71,7 @@
 	$("#floyd").click(function() {
 		$(".cycler").each(function() {
 			var $self = $(this);
-			var anim = floyd( Cycler.createAlgorithmModel($self));
+			var anim = floyd( ycler.createAlgorithmModel($self));
 
 			Cycler.animate($self, anim);
 

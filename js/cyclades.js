@@ -100,19 +100,23 @@
 		return next;
 	}
 
+  // We've been told our player is now at index
+	// so update the DOM
+	function setPlayerCell($table, player, index) {
+			$("td." + player, $table[0]).removeClass(player);
+			if( undefined !== index) {
+					$("td.index-" + index, $table[0]).addClass(player);
+			}
+	}
+
+	// action starts here
 	$(".cycler").each(function() {
 		resetTable($(this));
 	});
 
+
 	window.Cycler = {
 		resetTable: resetTable,
-		// our player has moved to a new index
-		setPlayerCell: function($table, player, index) {
-				$("td." + player, $table[0]).removeClass(player);
-				if( undefined !== index) {
-						$("td.index-" + index, $table[0]).addClass(player);
-				}
-		},
 		// Run our animation of the itinerary
 		animate: function($parentNode, itinerary) {
 			var curIndex = 0;
@@ -142,7 +146,7 @@
 
 				if( curEvent.event === 'move') {
 					["tortice", "hare"].forEach(function(player) {
-							self.setPlayerCell($table, player, curEvent[player]);
+							setPlayerCell($table, player, curEvent[player]);
 					});
 				} else if(curEvent.event === 'phase') {
 					 if(curPhase) {
