@@ -161,4 +161,32 @@
 		}
 	};
 
+	window.Cycler.createAlgorithmModel = function($cycler) {
+		var amPrototype = {
+			adv: function(v) {
+				return Cycler.nextElement(v, this.model);
+			},
+			atPosition: function(t, h, phase) {
+				this.tortice = t;
+				this.hare = h;
+				this.anim.push({'event': 'move', 'tortice': this.tortice, 'hare': this.hare});
+				if( phase) {
+						this.anim.push({'event': 'phase', 'phase': phase});
+				}
+			},
+			foundData: function(name, value) {
+				this.anim.push({'event': 'foundData', 'name': name, 'value': value});
+			}
+		};
+
+		var ret = Object.create(amPrototype);
+
+		ret.model = $cycler.data("cycleData");
+		ret.tortice = undefined;
+		ret.hare = undefined;
+		ret.anim = [];
+
+		return ret;
+	};
+
 })(jQuery);

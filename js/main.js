@@ -23,65 +23,47 @@
 		return anim;
 	}
 
-	function floyd(model) {
-		var anim = [];
-		var tortice, hare;
+	function floyd(c) {
 		var mu, lam;
 
-		function adv(v) {
-			return Cycler.nextElement(v, model);
-		}
 
-		function atPosition(t, h, phase) {
-			tortice = t;
-			hare = h;
-			anim.push({'event': 'move', 'tortice': tortice, 'hare': hare});
-			if( phase) {
-					anim.push({'event': 'phase', 'phase': phase});
-			}
-		}
-
-		function foundData(name, value) {
-				anim.push({'event': 'foundData', 'name': name, 'value': value});
-		}
-
-		atPosition(0, 0, "cycleMultiple");
-		atPosition(adv(tortice), adv(adv(hare)));
+		c.atPosition(0, 0, "cycleMultiple");
+		c.atPosition(c.adv(c.tortice), c.adv(c.adv(c.hare)));
 
 		lam = 1;
-		while(tortice !== hare) {
-			atPosition(adv(tortice), adv(adv(hare)));
+		while(c.tortice !== c.hare) {
+			c.atPosition(c.adv(c.tortice), c.adv(c.adv(c.hare)));
 			lam++;
 		}
 
-		foundData("cycleMultiple", lam - 1);
+		c.foundData("cycleMultiple", lam - 1);
 	//	anim[anim.length -1].cycleLength = lam - 1;
 
 
 		mu = 0;
-		atPosition(0, hare, "cycleStart");
-		while( tortice !== hare) {
-			atPosition(adv(tortice), adv(hare));
+		c.atPosition(0, c.hare, "cycleStart");
+		while( c.tortice !== c.hare) {
+			c.atPosition(c.adv(c.tortice), c.adv(c.hare));
 			mu++;
 		}
 
-		foundData("cycleStart", mu);
+		c.foundData("cycleStart", mu);
 
 	//	anim[anim.length -1].cycleStart = mu;
 
 
 		lam = 1;
-		atPosition(tortice, adv(tortice), "minCycle");
-		while( tortice !== hare) {
-			atPosition(tortice, adv(hare));
+		c.atPosition(c.tortice, c.adv(c.tortice), "minCycle");
+		while( c.tortice !== c.hare) {
+			c.atPosition(c.tortice, c.adv(c.hare));
 			lam++;
 		}
 
-		foundData("minCycle", lam - 1);
+		c.foundData("minCycle", lam - 1);
 
 	//	anim[anim.length -1].cycleLength = lam - 1;
 
-		return anim;
+		return c.anim;
 	}
 
 	$("#cycleGo").click(function() {
@@ -98,8 +80,7 @@
 	$("#floyd").click(function() {
 		$(".cycler").each(function() {
 			var $self = $(this);
-			var model = $self.data("cycleData");
-			var anim = floyd(model);
+			var anim = floyd( Cycler.createAlgorithmModel($self));
 
 			Cycler.animate($self, anim);
 
