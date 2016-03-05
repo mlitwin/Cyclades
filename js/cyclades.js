@@ -5,10 +5,13 @@
  *  and choose at which element the cycle starts, and where you go from there.
  *
  *  Your cycle detection algorithm would get the model level info from the
- *  $parentNode.data("cycleData"); and then implement the algorithm using
- *  Cycler.nextElement(cur, model) to get the next index.
+ *  c = Cycler.createAlgorithmModel($parentNode);
+ *  and then do
+ *    nextIndex = c.adv(index) to advance and index
+ *    call c.atPosition()
+ *    call c.haveData()
  *
- *  Collect your sequence in anim = [ {tortice: index, hare: index}, ...] and
+ *  to ollect your sequence in c.anim = [ {tortice: index, hare: index}, ...] and
  *  call Cycler.animate($parentNode, anim); to get the visuals
  *
 */
@@ -80,28 +83,29 @@
 		$cycler.data("cycleData", cycleData);
 	}
 
+	// next element is element + 1, unless we're looping at a cycle
+	function nextElement(cur, model) {
+		var next;
+		if( cur === model.cycleStart) {
+			next = model.cycleEnd;
+		} else {
+			next = cur + 1;
+		}
+
+		// arbitrary condition to ensure nextElement is a valid element.
+		if( next > model.maxIndex) {
+			next = model.maxIndex;
+		}
+
+		return next;
+	}
+
 	$(".cycler").each(function() {
 		resetTable($(this));
 	});
 
 	window.Cycler = {
 		resetTable: resetTable,
-		// next element is element + 1, unless we're looping at a cycle
-		nextElement: function(cur, model) {
-			var next;
-			if( cur === model.cycleStart) {
-				next = model.cycleEnd;
-			} else {
-				next = cur + 1;
-			}
-
-			// arbitrary condition to ensure nextElement is a valid element.
-			if( next > model.maxIndex) {
-				next = model.maxIndex;
-			}
-
-			return next;
-		},
 		// our player has moved to a new index
 		setPlayerCell: function($table, player, index) {
 				$("td." + player, $table[0]).removeClass(player);
@@ -164,7 +168,7 @@
 	window.Cycler.createAlgorithmModel = function($cycler) {
 		var amPrototype = {
 			adv: function(v) {
-				return Cycler.nextElement(v, this.model);
+				return nextElement(v, this.model);
 			},
 			atPosition: function(t, h, phase) {
 				this.tortice = t;
