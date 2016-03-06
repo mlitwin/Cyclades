@@ -8,11 +8,14 @@
  *  c = Cycler.createAlgorithmModel($parentNode);
  *  and then do
  *    nextIndex = c.adv(index) to advance and index
- *    call c.atPosition()
- *    call c.haveData()
+ *    call "c.atPosition(c.tortice, c.hare)" when you've finished a move
+ *    call c.haveData(name, value) when you've figured out an answer:
+ *       - cycleMultiple (found a multiple of the cycle length)
+ *       - minCycle (found the cycle length)
+ *       - cycleStart (found the start of the cycle)
  *
- *  to ollect your sequence in c.anim = [ {tortice: index, hare: index}, ...] and
- *  call Cycler.animate($parentNode, anim); to get the visuals
+ *  This collects your sequence in c.anim = [ {tortice: index, hare: index}, ...] and
+ *  then you can call Cycler.animate($parentNode, anim); to get the visuals
  *
 */
 

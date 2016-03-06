@@ -1,4 +1,12 @@
+/*
+ *	Styles for the cycle animation.
+ *  At the top level, we have a .cycleParent, which has a table child with td that
+ *  are colored by .tortice and .hare.
+ *  There is also a .cycleResults that has children with various text values
+ *
+*/
 
+/* Cycle table styles */
 .cycleParent td {
 	width: 12px;
 	height: 12px;
@@ -24,12 +32,15 @@
 	background: olive;
 }
 
+/* Cycle results styles */
 
+/* When a text field has any data, mark it */
 .cycleResults .hasData {
 	border: 1px solid green;
 	padding: 0px 3px;
 }
 
+/* preliminaryData means there's going to be an update */
 .cycleResults .hasData.preliminaryData {
 	border-color: black;
 	border-style: dashed;
