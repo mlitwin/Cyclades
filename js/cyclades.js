@@ -57,12 +57,12 @@
 				// .index-k
 				$td.addClass("index-" + k);
 
-
 				// and .cycleEnd / .cycleStart class
+				// one past cycleEnd is the same as cycleStart
 				if( k === c0) {
 					$td.addClass("cycleEnd");
 				}
-				if( k === c1) {
+				if( k === (c1 + 1)) {
 					$td.addClass("cycleStart");
 				}
 				k++;
@@ -78,7 +78,8 @@
 		return {
 			maxIndex: length - 1,
 			cycleEnd: c0,
-			cycleStart: c1
+			cycleStart: c1,
+			cycleLength: c1 - c0 + 1
 		};
 	}
 

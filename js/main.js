@@ -44,7 +44,7 @@
 			c.atPosition(adv(c.tortice), adv(adv(c.hare)));
 			lam++;
 		}
-		c.foundData("cycleMultiple", lam - 1);
+		c.foundData("cycleMultiple", lam);
 
 		mu = 0;
 
@@ -57,7 +57,6 @@
 
 		c.foundData("cycleStart", mu);
 
-
 		lam = 1;
 		c.changePhase( "minCycle");
 		c.atPosition(c.tortice, adv(c.tortice));
@@ -65,13 +64,13 @@
 			c.atPosition(c.tortice, adv(c.hare));
 			lam++;
 		}
-		c.foundData("minCycle", lam - 1);
+		c.foundData("minCycle", lam);
 
 		return c.anim;
 	}
 
 	function brent(c) {
-		var mu, lam;
+		var mu, lam, i;
 		var width;
 		// Convenience wrapper
 		function adv(v) { return c.nextElement(v); }
@@ -92,7 +91,21 @@
 				width *= 2;
 			}
 		}
+		lam++;
 		c.foundData("minCycle", lam);
+
+		c.changePhase( "cycleStart");
+		c.atPosition(0, 0);
+		for(i = 0; i < lam; i++) {
+			c.atPosition(c.tortice, adv(c.hare));
+		}
+		mu = 0;
+		while(c.tortice !== c.hare) {
+      c.atPosition(adv(c.tortice), adv(c.hare));
+			mu++;
+		}
+		c.foundData("cycleStart", mu);
+
 
 		return c.anim;
 	}
