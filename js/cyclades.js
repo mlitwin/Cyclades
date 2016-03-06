@@ -163,7 +163,7 @@
 					 $cycleParent.addClass(curEvent.phase);
 					 curPhase = curEvent.phase;
 					 $cycleParent.find(".cycleResults .curPhase").text(curPhase);
-					 delay = 150;
+					 delay = 500;
 				} else if(curEvent.event === 'foundData') {
 					handleFoundData(curEvent);
 				}
