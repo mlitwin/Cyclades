@@ -110,33 +110,27 @@
 		return c.anim;
 	}
 
+	function runAlgorithm($parentNode, algorithm) {
+		var anim = algorithm(Cycler.createAlgorithmModel($parentNode));
+
+		Cycler.animate($parentNode, anim);
+	}
+
 	$("#cycleGo").click(function() {
 		$(".cycler").each(function() {
-			var $self = $(this);
-			var anim = runrunrunaround(Cycler.createAlgorithmModel($self));
-
-			Cycler.animate($self, anim);
-
+			runAlgorithm($(this), runrunrunaround);
 		});
 	});
 
 	$("#floyd").click(function() {
 		$(".cycler").each(function() {
-			var $self = $(this);
-			var anim = floyd( Cycler.createAlgorithmModel($self));
-
-			Cycler.animate($self, anim);
-
+			runAlgorithm($(this), floyd);
 		});
 	});
 
 	$("#brent").click(function() {
 		$(".cycler").each(function() {
-			var $self = $(this);
-			var anim = brent( Cycler.createAlgorithmModel($self));
-
-			Cycler.animate($self, anim);
-
+			runAlgorithm($(this), brent);
 		});
 	});
 
