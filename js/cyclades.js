@@ -150,7 +150,7 @@
 
 			function displayCurrentFrame() {
 				var curEvent = itinerary[curIndex];
-				var delay = 50;
+				var delay = 150;
 
 				if( curEvent.event === 'move') {
 					["tortice", "hare"].forEach(function(player) {
