@@ -36,7 +36,7 @@
 
 	function resetTableDOM($parentNode) {
 		var i, j, k, tmp;
-		var c0 = randIndex(), c1 = randIndex(); // cycle goes from c1 -> c0
+		var c0 = Math.floor(Math.random() * length / 3), c1 = c0 + Math.floor(Math.random() * 3 * N); // cycle goes from c1 -> c0
 		var $cycleParent = $('<div class="cycleParent"></div>');
 
 		var $table = $("<table></table>"),
@@ -44,9 +44,9 @@
 			$td;
 
 		// normalize to c0 <= c1
-		if( c0 > c1) {
-			tmp = c0; c0 = c1; c1 = tmp;
-		}
+	//	if( c0 > c1) {
+		//	tmp = c0; c0 = c1; c1 = tmp;
+		//}
 
 		// lay out an N x N table
 		k = 0;
@@ -115,7 +115,7 @@
 	function setPlayerCell($table, player, index) {
 			$("td." + player, $table[0]).removeClass(player);
 			if( undefined !== index) {
-					$("td.index-" + index, $table[0]).addClass(player);
+					$("td.index-" + index.reduced, $table[0]).addClass(player);
 			}
 	}
 
@@ -188,7 +188,22 @@
 	window.Cycler.createAlgorithmModel = function($cycler) {
 		var amPrototype = {
 			nextElement: function(v) {
-				return nextElement(v, this.model);
+				return v + 1;
+				//return nextElement(v, this.model);
+			},
+			reducedElement: function(v) {
+				var c0 = this.model.cycleEnd;
+				var len = this.model.cycleLength;
+				if( v > c0) {
+					v = c0 + (v- c0) % len;
+				}
+				return v;
+			},
+			sameElement: function(t,h) {
+				return this.reducedElement(t) === this.reducedElement(h);
+			},
+			atSame: function() {
+				return this.sameElement(this.tortice, this.hare);
 			},
 			changePhase: function(phase) {
 					this.anim.push({'event': 'phase', 'phase': phase});
@@ -196,7 +211,10 @@
 			atPosition: function(t, h) {
 				this.tortice = t;
 				this.hare = h;
-				this.anim.push({'event': 'move', 'tortice': this.tortice, 'hare': this.hare});
+				this.anim.push({'event': 'move',
+					'tortice': {'index': this.tortice, 'reduced': this.reducedElement(this.tortice)},
+					'hare': { 'index': this.hare, 'reduced': this.reducedElement(this.hare)}
+				});
 			},
 			foundData: function(name, value) {
 				this.anim.push({'event': 'foundData', 'name': name, 'value': value});

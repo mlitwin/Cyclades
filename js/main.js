@@ -19,9 +19,6 @@
 	function initSketchCycle(c) {
 		setSketchValue("c0", c.model.cycleEnd);
 		setSketchValue("c1", c.model.cycleStart + 1);
-	//	setSketchValue("c1", 20);
-	//	setSketchValue("c1", c.model.cycleEnd);
-	//	setSketchValue("c0", c.model.cycleStart + 1);
 	}
 
   function doUpdateFrame(curEvent) {
@@ -34,12 +31,12 @@
 
 			if( curEvent.event === 'move') {
 				if(undefined !== curEvent.tortice) {
-					targetT.value(curEvent.tortice);
+					targetT.value(curEvent.tortice.index);
 					moveT.press();
 				}
 
 				if(undefined !== curEvent.hare) {
-					targetH.value(curEvent.hare);
+					targetH.value(curEvent.hare.index);
 					moveH.press();
 				}
 			}
@@ -82,7 +79,7 @@
 		c.atPosition(adv(c.tortice), adv(adv(c.hare)));
 
 		lam = 1;
-		while(c.tortice !== c.hare) {
+		while( !c.atSame()) {
 			c.atPosition(adv(c.tortice), adv(adv(c.hare)));
 			lam++;
 		}
@@ -92,7 +89,7 @@
 
 		c.changePhase( "cycleStart");
 		c.atPosition(0, c.hare);
-		while( c.tortice !== c.hare) {
+		while( !c.atSame()) {
 			c.atPosition(adv(c.tortice), adv(c.hare));
 			mu++;
 		}
@@ -102,7 +99,7 @@
 		lam = 1;
 		c.changePhase( "minCycle");
 		c.atPosition(c.tortice, adv(c.tortice));
-		while( c.tortice !== c.hare) {
+		while( !c.atSame()) {
 			c.atPosition(c.tortice, adv(c.hare));
 			lam++;
 		}
@@ -122,7 +119,7 @@
 		c.atPosition(c.tortice, adv(c.hare));
 
 		lam = 0; width = 1;
-		while(c.tortice !== c.hare) {
+		while( !c.atSame()) {
 			// looking for cycle
 			if( lam < width) {
 				c.atPosition(c.tortice, adv(c.hare));
@@ -142,7 +139,7 @@
 			c.atPosition(c.tortice, adv(c.hare));
 		}
 		mu = 0;
-		while(c.tortice !== c.hare) {
+		while( !c.atSame()) {
       c.atPosition(adv(c.tortice), adv(c.hare));
 			mu++;
 		}
