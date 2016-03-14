@@ -36,17 +36,12 @@
 
 	function resetTableDOM($parentNode) {
 		var i, j, k, tmp;
-		var c0 = Math.floor(Math.random() * length / 3), c1 = c0 + Math.floor(Math.random() * 3 * N); // cycle goes from c1 -> c0
+		var c0 = Math.floor(Math.random() * length / 3), c1 = c0 + Math.floor(Math.random() * 2 * N); // cycle goes from c1 -> c0
 		var $cycleParent = $('<div class="cycleParent"></div>');
 
 		var $table = $("<table></table>"),
 			$row,
 			$td;
-
-		// normalize to c0 <= c1
-	//	if( c0 > c1) {
-		//	tmp = c0; c0 = c1; c1 = tmp;
-		//}
 
 		// lay out an N x N table
 		k = 0;
