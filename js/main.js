@@ -5,6 +5,46 @@
 */
 
 (function($) {
+
+	function setSketchValue(name, v) {
+		var doc = $("#cycleSketch").data("document");
+		var sQ = doc.sQuery;
+		var target = sQ("[label='target" + name + "']");
+		var move = sQ("[label='Move" + name + "']");
+
+		target.value(v);
+		move.press();
+	}
+
+	function initSketchCycle(c) {
+		setSketchValue("c0", c.model.cycleEnd);
+		setSketchValue("c1", c.model.cycleStart + 1);
+	//	setSketchValue("c1", 20);
+	//	setSketchValue("c1", c.model.cycleEnd);
+	//	setSketchValue("c0", c.model.cycleStart + 1);
+	}
+
+  function doUpdateFrame(curEvent) {
+			var doc = $("#cycleSketch").data("document");
+			var sQ = doc.sQuery;
+			var targetH = sQ("[label='targetH']");
+			var targetT = sQ("[label='targetT']");
+			var moveT = sQ("[label='MoveT']");
+			var moveH = sQ("[label='MoveH']");
+
+			if( curEvent.event === 'move') {
+				if(undefined !== curEvent.tortice) {
+					targetT.value(curEvent.tortice);
+					moveT.press();
+				}
+
+				if(undefined !== curEvent.hare) {
+					targetH.value(curEvent.hare);
+					moveH.press();
+				}
+			}
+	}
+
 	$("#cycleReset").click(function() {
 		$(".cycler").each(function() {
 			Cycler.resetTable($(this));
@@ -34,6 +74,8 @@
 		var mu, lam;
 		// Convenience wrapper
 		function adv(v) { return c.nextElement(v); }
+
+		initSketchCycle(c);
 
 		c.changePhase( "cycleMultiple");
 		c.atPosition(0, 0);
@@ -113,7 +155,7 @@
 	function runAlgorithm($parentNode, algorithm) {
 		var anim = algorithm(Cycler.createAlgorithmModel($parentNode));
 
-		Cycler.animate($parentNode, anim);
+		Cycler.animate($parentNode, anim, doUpdateFrame);
 	}
 
 	$("#cycleGo").click(function() {

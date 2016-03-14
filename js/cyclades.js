@@ -128,7 +128,7 @@
 	window.Cycler = {
 		resetTable: resetTable,
 		// Run our animation of the itinerary
-		animate: function($parentNode, itinerary) {
+		animate: function($parentNode, itinerary, doUpdateFrame) {
 			var curIndex = 0;
 			var curPhase = "";
 			var $cycleParent = $parentNode.children(".cycleParent");
@@ -169,6 +169,10 @@
 					 delay = 500;
 				} else if(curEvent.event === 'foundData') {
 					handleFoundData(curEvent);
+				}
+
+				if( doUpdateFrame) {
+					doUpdateFrame(curEvent);
 				}
 
 				curIndex++;
