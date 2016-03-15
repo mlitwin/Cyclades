@@ -34,10 +34,11 @@
 
 	}
 
-	function resetTableDOM($parentNode) {
+	function resetTableDOM($parentNode, model) {
 		var i, j, k, tmp;
-		var c0 = Math.floor(Math.random() * length / 3), c1 = c0 + Math.floor(Math.random() * 2 * N); // cycle goes from c1 -> c0
 		var $cycleParent = $('<div class="cycleParent"></div>');
+		var c0 = model.model.cycleEnd;
+		var c1 = model.model.cycleStart;
 
 		var $table = $("<table></table>"),
 			$row,
@@ -72,20 +73,10 @@
 		resetResultsDOM($cycleParent);
 
 		$parentNode.empty().append($cycleParent);
-
-		return {
-			maxIndex: length - 1,
-			cycleEnd: c0,
-			cycleStart: c1,
-			cycleLength: c1 - c0 + 1
-		};
 	}
 
-	function resetTable($cycler) {
-		var cycleData;
-
-		cycleData = resetTableDOM($cycler);
-		$cycler.data("cycleData", cycleData);
+	function resetTable($cycler, model) {
+	  resetTableDOM($cycler, model);
 	}
 
 	// next element is element + 1, unless we're looping at a cycle
@@ -113,12 +104,6 @@
 					$("td.index-" + index.reduced, $table[0]).addClass(player);
 			}
 	}
-
-	// action starts here
-	$(".cycler").each(function() {
-		resetTable($(this));
-	});
-
 
 	window.Cycler = {
 		resetTable: resetTable,
@@ -180,8 +165,18 @@
 		}
 	};
 
-	window.Cycler.createAlgorithmModel = function($cycler) {
-		var amPrototype = {
+	var AlgorithmModelPrototype = {
+		  randomize: function(length) {
+				var c0 = Math.floor(Math.random() * length / 3),
+				c1 = c0 + Math.floor(Math.random() * 2 * Math.sqrt(length)); // cycle goes from c1 -> c0
+
+				this.model =  {
+						maxIndex: length - 1,
+						cycleEnd: c0,
+						cycleStart: c1,
+						cycleLength: c1 - c0 + 1
+				};
+			},
 			nextElement: function(v) {
 				return v + 1;
 				//return nextElement(v, this.model);
@@ -216,14 +211,14 @@
 			}
 		};
 
-		var ret = Object.create(amPrototype);
+	window.Cycler.createAlgorithmModel = function(length) {
+		var ret = Object.create(AlgorithmModelPrototype);
 
-		ret.model = $cycler.data("cycleData");
+		ret.randomize(length);
 		ret.tortice = undefined;
 		ret.hare = undefined;
 		ret.anim = [];
 
-		resetResultsDOM($cycler);
 
 		return ret;
 	};

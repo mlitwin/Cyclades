@@ -42,30 +42,15 @@
 			}
 	}
 
+	var N = 10, length = N * N;
+	var model = Cycler.createAlgorithmModel(length);
+
 	$("#cycleReset").click(function() {
+		model.randomize(length);
 		$(".cycler").each(function() {
-			Cycler.resetTable($(this));
+			Cycler.resetTable($(this), model);
 		});
 	});
-
-	// tortice and hare just run together - testing the animation code.
-	function runrunrunaround(c) {
-		var hare;
-		// Convenience wrapper
-		function adv(v) { return c.nextElement(v); }
-
-		c.changePhase( "runningMindlessly");
-		c.atPosition(0, 0);
-		for(i = 0; i <= c.model.maxIndex; i++) {
-			hare = adv(c.hare);
-			if(Math.random() < 0.5) {
-				hare = adv(hare);
-			}
-			c.atPosition(adv(c.tortice), hare);
-		}
-
-		return c.anim;
-	}
 
 	function floyd(c) {
 		var mu, lam;
@@ -150,16 +135,13 @@
 	}
 
 	function runAlgorithm($parentNode, algorithm) {
-		var anim = algorithm(Cycler.createAlgorithmModel($parentNode));
+		var anim = algorithm(model);
+
+		//resetResultsDOM($parentNode);
+
 
 		Cycler.animate($parentNode, anim, doUpdateFrame);
 	}
-
-	$("#cycleGo").click(function() {
-		$(".cycler").each(function() {
-			runAlgorithm($(this), runrunrunaround);
-		});
-	});
 
 	$("#floyd").click(function() {
 		$(".cycler").each(function() {
