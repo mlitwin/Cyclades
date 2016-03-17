@@ -43,12 +43,12 @@
 	}
 
 	var N = 10, length = N * N;
-	var model = Cycler.createAlgorithmModel(length);
+	var cycler = Cycler.createCyler(length);
 
 	$("#cycleReset").click(function() {
-		model.randomize(length);
+		cycler.randomize(length);
 		$(".cycler").each(function() {
-			Cycler.resetTable($(this), model);
+			Cycler.resetTable($(this), cycler);
 		});
 	});
 
@@ -135,10 +135,7 @@
 	}
 
 	function runAlgorithm($parentNode, algorithm) {
-		var anim = algorithm(model);
-
-		//resetResultsDOM($parentNode);
-
+		var anim = algorithm(cycler);
 
 		Cycler.animate($parentNode, anim, doUpdateFrame);
 	}

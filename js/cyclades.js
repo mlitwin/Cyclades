@@ -108,12 +108,13 @@
 	window.Cycler = {
 		resetTable: resetTable,
 		// Run our animation of the itinerary
-		animate: function($parentNode, itinerary, doUpdateFrame) {
+		animate: function($parentNode, itinerary, frameUpdate) {
 			var curIndex = 0;
 			var curPhase = "";
 			var $cycleParent = $parentNode.children(".cycleParent");
 			var $table = $cycleParent.children("table");
 			var self = this;
+			var frameUpdateList = ('function' === typeof frameUpdate) ? [frameUpdate] : frameUpdate;
 
 			function handleFoundData(event) {
 				var targetDomClass = event.name;
@@ -151,8 +152,10 @@
 					handleFoundData(curEvent);
 				}
 
-				if( doUpdateFrame) {
-					doUpdateFrame(curEvent);
+				if( frameUpdateList) {
+					frameUpdateList.forEach(function(frameUpdater) {
+						frameUpdater( curEvent);
+					})
 				}
 
 				curIndex++;
@@ -165,7 +168,7 @@
 		}
 	};
 
-	var AlgorithmModelPrototype = {
+	var CyclerPrototype = {
 		  randomize: function(length) {
 				var c0 = Math.floor(Math.random() * length / 3),
 				c1 = c0 + Math.floor(Math.random() * 2 * Math.sqrt(length)); // cycle goes from c1 -> c0
@@ -211,8 +214,8 @@
 			}
 		};
 
-	window.Cycler.createAlgorithmModel = function(length) {
-		var ret = Object.create(AlgorithmModelPrototype);
+	window.Cycler.createCyler = function(length) {
+		var ret = Object.create(CyclerPrototype);
 
 		ret.randomize(length);
 		ret.tortice = undefined;
