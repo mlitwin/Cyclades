@@ -44,12 +44,11 @@
 
 	var N = 10, length = N * N;
 	var cycler = Cycler.createCyler(length);
+	var squarecycle = SquareCycle.createSquareCycle($("#cycler"), cycler);
 
 	$("#cycleReset").click(function() {
 		cycler.randomize(length);
-		$(".cycler").each(function() {
-			Cycler.resetTable($(this), cycler);
-		});
+		squarecycle.resetDOM();
 	});
 
 	function floyd(c) {
@@ -134,22 +133,21 @@
 		return c.anim;
 	}
 
-	function runAlgorithm($parentNode, algorithm) {
-		var anim = algorithm(cycler);
+	function runAlgorithm(algorithm) {
+		var anim;
 
-		Cycler.animate($parentNode, anim, doUpdateFrame);
+		cycler.clear();
+		anim = algorithm(cycler);
+
+		Cycler.animate(anim, [doUpdateFrame, function(event) { squarecycle.displayFrame(event); }]);
 	}
 
 	$("#floyd").click(function() {
-		$(".cycler").each(function() {
-			runAlgorithm($(this), floyd);
-		});
+		runAlgorithm( floyd);
 	});
 
 	$("#brent").click(function() {
-		$(".cycler").each(function() {
-			runAlgorithm($(this), brent);
-		});
+		runAlgorithm( brent);
 	});
 
 })(jQuery);
