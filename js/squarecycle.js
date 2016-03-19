@@ -1,6 +1,11 @@
 /*
  *	Visualization of cycle detection algorithms.
  *
+ *  This visualization is an NxN grid of squares, where the first
+ *  and last element of the cycle are colored.
+ *  Tortice and hare elements are also colored,
+ *  and there's a status line at the bottom.
+ *
  *
 */
 
@@ -10,7 +15,6 @@
 		$cycleParent.find(".cycleResults").empty().html('<div><span class="cycleStartLabel">Start:</span> ' +
 			'<span class="cycleStart">&nbsp;</span> <span class="cycleLengthLabel">Length:</span>' +
 			'<span class="cycleLength">&nbsp;</span><div><div><span class="curPhaseLabel">Seeking: </span><span class="curPhase">&nbsp;</span></div>');
-
 	}
 
 	function resetTableDOM($parentNode, model) {
@@ -108,7 +112,6 @@
 			}
 		},
 		'reset': function() {
-			//var $cycleParent = $parentNode.children(".cycleParent");
 			  resetTableDOM(this.parentNode, this.model);
 		}
 	};

@@ -1,21 +1,6 @@
 /*
  *	Visualization of cycle detection algorithms.
  *
- *	Display our list as an N x N grid, with a standard ordering,
- *  and choose at which element the cycle starts, and where you go from there.
- *
- *  Your cycle detection algorithm would get the model level info from the
- *  c = Cycler.createAlgorithmModel($parentNode);
- *  and then do
- *    nextIndex = c.adv(index) to advance and index
- *    call "c.atPosition(c.tortice, c.hare)" when you've finished a move
- *    call c.haveData(name, value) when you've figured out an answer:
- *       - cycleMultiple (found a multiple of the cycle length)
- *       - minCycle (found the cycle length)
- *       - cycleStart (found the start of the cycle)
- *
- *  This collects your sequence in c.anim = [ {tortice: index, hare: index}, ...] and
- *  then you can call Cycler.animate($parentNode, anim); to get the visuals
  *
 */
 
@@ -26,8 +11,6 @@
 	function randIndex() {
 		return Math.floor(Math.random() * length);
 	}
-
-
 
 	// next element is element + 1, unless we're looping at a cycle
 	function nextElement(cur, model) {
