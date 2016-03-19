@@ -7,7 +7,7 @@
 (function($) {
 	var N = 10, length = N * N;
 	var cycler = Cycler.createCyler(length);
-	var sketchcycle = SketchCycle.createSketchCycle($("#cycler"), sketch, cycler);
+	var sketchcycle = SketchCycle.createSketchCycle($("#cycleSketch"), sketch, cycler);
 	var squarecycle = SquareCycle.createSquareCycle($("#cycler"), cycler);
 
 	function resetCycler() {

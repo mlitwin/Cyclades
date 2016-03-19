@@ -1,39 +1,40 @@
 /*
  *	Visualization of cycle detection algorithms.
  *
- *
+ *	This one hooks up to a web (specially authored)
+ *  Web Sketch, and drives it with JavaScript
 */
 
 (function($) {
 
-	function setSketchValue(name, v) {
-		var doc = $("#cycleSketch").data("document");
-		var sQ = doc.sQuery;
-		var target = sQ("[label='target" + name + "']");
-		var move = sQ("[label='Move" + name + "']");
-
-		target.value(v);
-		move.press();
-	}
-
-	function initSketchCycle(c) {
-		setSketchValue("c0", c.model.cycleEnd);
-		setSketchValue("c1", c.model.cycleStart + 1);
-	}
-
  var SketchCyclePrototype = {
+	  /*  Set a value in the sketch
+		 *	We are assuming there's a targetNAME paramter to
+ 		 *  set, and a MoveNAME action button to press in the
+ 	 	 *  sketch which makes the new value take effect.
+	  */
+	  setSketchValue: function(name, v) {
+		 	var doc = this.parentNode.data("document");
+			var sQ = doc.sQuery;
+			var target = sQ("[label='target" + name + "']");
+			var move = sQ("[label='Move" + name + "']");
+
+			target.value(v);
+			move.press();
+		},
 	 	displayFrame: function(curEvent) {
 				if( curEvent.event === 'move') {
 					if(undefined !== curEvent.tortice) {
-							setSketchValue("T", curEvent.tortice.index);
+							this.setSketchValue("T", curEvent.tortice.index);
 					}
 					if(undefined !== curEvent.hare) {
-							setSketchValue("H", curEvent.hare.index);
+							this.setSketchValue("H", curEvent.hare.index);
 					}
 				}
 		},
 		reset: function() {
-			 initSketchCycle( this.model);
+			this.setSketchValue("c0", this.model.model.cycleEnd);
+			this.setSketchValue("c1", this.model.model.cycleStart + 1);
 		}
  };
 
@@ -44,7 +45,7 @@
 		ret.parentNode = $parentNode;
 		ret.model = cycler;
 
-		$("#cycleSketch").WSP("loadSketch", {
+		$parentNode.WSP("loadSketch", {
 					"data-sourceDocument": sketch,
 					"onReady": function() { initSketchCycle(cycler); }
 			}
