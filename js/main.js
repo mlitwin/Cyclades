@@ -7,55 +7,15 @@
 (function($) {
 	var N = 10, length = N * N;
 	var cycler = Cycler.createCyler(length);
+	var sketchcycle = SketchCycle.createSketchCycle($("#cycler"), sketch, cycler);
 	var squarecycle = SquareCycle.createSquareCycle($("#cycler"), cycler);
-
-	function setSketchValue(name, v) {
-		var doc = $("#cycleSketch").data("document");
-		var sQ = doc.sQuery;
-		var target = sQ("[label='target" + name + "']");
-		var move = sQ("[label='Move" + name + "']");
-
-		target.value(v);
-		move.press();
-	}
-
-	function initSketchCycle(c) {
-		setSketchValue("c0", c.model.cycleEnd);
-		setSketchValue("c1", c.model.cycleStart + 1);
-	}
-
-  function doUpdateFrame(curEvent) {
-			var doc = $("#cycleSketch").data("document");
-			var sQ = doc.sQuery;
-			var targetH = sQ("[label='targetH']");
-			var targetT = sQ("[label='targetT']");
-			var moveT = sQ("[label='MoveT']");
-			var moveH = sQ("[label='MoveH']");
-
-			if( curEvent.event === 'move') {
-				if(undefined !== curEvent.tortice) {
-					targetT.value(curEvent.tortice.index);
-					moveT.press();
-				}
-
-				if(undefined !== curEvent.hare) {
-					targetH.value(curEvent.hare.index);
-					moveH.press();
-				}
-			}
-	}
 
 	function resetCycler() {
 		cycler.randomize(length);
+		sketchcycle.reset();
 		squarecycle.reset();
-		initSketchCycle(cycler);
 	}
 
-	$("#cycleSketch").WSP("loadSketch", {
-        "data-sourceDocument": sketch,
-				"onReady": function() { initSketchCycle(cycler); }
-		}
-	);
 	squarecycle.reset();
 
 
@@ -67,8 +27,6 @@
 		var mu, lam;
 		// Convenience wrapper
 		function adv(v) { return c.nextElement(v); }
-
-		initSketchCycle(c);
 
 		c.changePhase( "cycleMultiple");
 		c.atPosition(0, 0);
@@ -151,7 +109,9 @@
 		cycler.clear();
 		anim = algorithm(cycler);
 
-		Cycler.animate(anim, [doUpdateFrame, function(event) { squarecycle.displayFrame(event); }]);
+		Cycler.animate(anim, [
+			function(event) { sketchcycle.displayFrame(event); },
+			function(event) { squarecycle.displayFrame(event); }]);
 	}
 
 	$("#floyd").click(function() {
