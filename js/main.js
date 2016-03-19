@@ -5,6 +5,9 @@
 */
 
 (function($) {
+	var N = 10, length = N * N;
+	var cycler = Cycler.createCyler(length);
+	var squarecycle = SquareCycle.createSquareCycle($("#cycler"), cycler);
 
 	function setSketchValue(name, v) {
 		var doc = $("#cycleSketch").data("document");
@@ -42,13 +45,22 @@
 			}
 	}
 
-	var N = 10, length = N * N;
-	var cycler = Cycler.createCyler(length);
-	var squarecycle = SquareCycle.createSquareCycle($("#cycler"), cycler);
+	function resetCycler() {
+		cycler.randomize(length);
+		squarecycle.reset();
+		initSketchCycle(cycler);
+	}
+
+	$("#cycleSketch").WSP("loadSketch", {
+        "data-sourceDocument": sketch,
+				"onReady": function() { initSketchCycle(cycler); }
+		}
+	);
+	squarecycle.reset();
+
 
 	$("#cycleReset").click(function() {
-		cycler.randomize(length);
-		squarecycle.resetDOM();
+		resetCycler();
 	});
 
 	function floyd(c) {

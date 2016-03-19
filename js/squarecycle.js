@@ -107,7 +107,7 @@
 				handleFoundData(curEvent, $cycleParent);
 			}
 		},
-		'resetDOM': function() {
+		'reset': function() {
 			//var $cycleParent = $parentNode.children(".cycleParent");
 			  resetTableDOM(this.parentNode, this.model);
 		}
