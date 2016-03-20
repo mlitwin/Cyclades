@@ -13,6 +13,9 @@
 	border: 1px solid black;
 }
 
+.cycleParent td.cyclePast {
+	background-color: darkgray;
+}
 .cycleParent td.cycleStart {
 	background-color: gold;
 }

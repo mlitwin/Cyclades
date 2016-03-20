@@ -6,7 +6,6 @@
  *  Tortice and hare elements are also colored,
  *  and there's a status line at the bottom.
  *
- *
 */
 
 (function($) {
@@ -44,9 +43,10 @@
 				// one past cycleEnd is the same as cycleStart
 				if( k === c0) {
 					$td.addClass("cycleEnd");
-				}
-				if( k === (c1 + 1)) {
+				} else if( k === (c1 + 1)) {
 					$td.addClass("cycleStart");
+				} else if( k > (c1 + 1)) {
+					$td.addClass("cyclePast");					
 				}
 				k++;
 			}
