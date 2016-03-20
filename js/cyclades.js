@@ -1,34 +1,20 @@
 /*
  *	Visualization of cycle detection algorithms.
  *
+ *	A Cycler (Cycler.createCyler) handles two things:
+ *
+ *  Creation of a "cycle", which defines the topography of our
+ *  cycle: where it starts, and it's length, and some utilities
+ *  to determine if two indices are the same considering the cycle, etc.
+ *
+ *  It also has routines to accumulate steps in an "animation" - a dumb-data
+ *  set of steps showing e.g. movement of tortice and hare, determination of
+ *  what the length of the cycyle is, etc, for later visiualization of the
+ *  course of a cycle detection algorithm.
  *
  */
 
 (function($) {
-  var N = 10,
-    length = N * N;
-
-  function randIndex() {
-    return Math.floor(Math.random() * length);
-  }
-
-  // next element is element + 1, unless we're looping at a cycle
-  function nextElement(cur, cycle) {
-    var next;
-    if (cur === cycle.cycleStart) {
-      next = cycle.cycleEnd;
-    } else {
-      next = cur + 1;
-    }
-
-    // arbitrary condition to ensure nextElement is a valid element.
-    if (next > cycle.maxIndex) {
-      next = cycle.maxIndex;
-    }
-
-    return next;
-  }
-
   window.Cycler = {
     // Run our animation of the itinerary
     animate: function(itinerary, frameUpdate) {
@@ -80,6 +66,11 @@
   };
 
   var CyclerPrototype = {
+		clear: function() {
+			this.tortice = undefined;
+			this.hare = undefined;
+			this.anim = [];
+		},
     randomize: function(length) {
       var c0 = Math.floor(Math.random() * length / 3),
         c1 = c0 + Math.floor(Math.random() * 2 * Math.sqrt(length)); // cycle goes from c1 -> c0
@@ -93,7 +84,6 @@
     },
     nextElement: function(v) {
       return v + 1;
-      //return nextElement(v, this.cycle);
     },
     reducedElement: function(v) {
       var c0 = this.cycle.cycleEnd;
@@ -109,6 +99,7 @@
     atSame: function() {
       return this.sameElement(this.tortice, this.hare);
     },
+		// accumulate various events for playback:
     changePhase: function(phase) {
       this.anim.push({
         'event': 'phase',
@@ -136,11 +127,6 @@
         'name': name,
         'value': value
       });
-    },
-    clear: function() {
-      this.tortice = undefined;
-      this.hare = undefined;
-      this.anim = [];
     }
   };
 
