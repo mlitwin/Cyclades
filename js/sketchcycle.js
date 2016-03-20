@@ -48,7 +48,7 @@
     $parentNode.WSP("loadSketch", {
       "data-sourceDocument": sketch,
       "onReady": function() {
-        initSketchCycle(cycler);
+        ret.reset();
       }
     });
 
