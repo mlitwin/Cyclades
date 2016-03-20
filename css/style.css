@@ -6,46 +6,47 @@
  *
 */
 
-/* Cycle table styles */
-.cycleParent td {
-	width: 12px;
-	height: 12px;
-	border: 1px solid black;
-}
 
+/* Cycle table styles */
+
+.cycleParent td {
+  width: 12px;
+  height: 12px;
+  border: 1px solid black;
+}
 .cycleParent td.cyclePast {
-	background-color: darkgray;
+  background-color: darkgray;
 }
 .cycleParent td.cycleStart {
-	background-color: gold;
+  background-color: gold;
 }
 .cycleParent td.cycleEnd {
-	background-color: gold;
+  background-color: gold;
 }
-
 .cycleParent td.tortice {
-	background-color: green;
+  background-color: green;
 }
-
 .cycleParent td.hare {
-	background-color: saddlebrown;
+  background-color: saddlebrown;
 }
-
 .cycleParent td.hare.tortice {
-	background: olive;
+  background: olive;
 }
 
 /* Cycle results styles */
 
+
 /* When a text field has any data, mark it */
+
 .cycleResults .hasData {
-	border: 1px solid green;
-	padding: 0px 3px;
+  border: 1px solid green;
+  padding: 0px 3px;
 }
 
 /* preliminaryData means there's going to be an update */
+
 .cycleResults .hasData.preliminaryData {
-	border-color: black;
-	border-style: dashed;
-	color: gray;
+  border-color: black;
+  border-style: dashed;
+  color: gray;
 }
