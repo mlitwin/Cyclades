@@ -33,8 +33,8 @@
 				}
 		},
 		reset: function() {
-			this.setSketchValue("c0", this.model.model.cycleEnd);
-			this.setSketchValue("c1", this.model.model.cycleStart + 1);
+			this.setSketchValue("c0", this.cycler.cycle.cycleEnd);
+			this.setSketchValue("c1", this.cycler.cycle.cycleStart + 1);
 		}
  };
 
@@ -43,7 +43,7 @@
 		//var $table = $cycleParent.children("table");
 		var ret = Object.create(SketchCyclePrototype);
 		ret.parentNode = $parentNode;
-		ret.model = cycler;
+		ret.cycler = cycler;
 
 		$parentNode.WSP("loadSketch", {
 					"data-sourceDocument": sketch,

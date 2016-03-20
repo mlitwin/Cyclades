@@ -17,11 +17,11 @@
 			'<span class="cycleLength">&nbsp;</span><div><div><span class="curPhaseLabel">Seeking: </span><span class="curPhase">&nbsp;</span></div>');
 	}
 
-	function resetTableDOM($parentNode, model) {
+	function resetTableDOM($parentNode, cycler) {
 		var i, j, k, tmp;
 		var $cycleParent = $('<div class="cycleParent"></div>');
-		var c0 = model.model.cycleEnd;
-		var c1 = model.model.cycleStart;
+		var c0 = cycler.cycle.cycleEnd;
+		var c1 = cycler.cycle.cycleStart;
 		var N = 10;
 
 		var $table = $("<table></table>"),
@@ -59,8 +59,8 @@
 		$parentNode.empty().append($cycleParent);
 	}
 
-	function resetTable($cycler, model) {
-	  resetTableDOM($cycler, model);
+	function resetTable($cycler, cycler) {
+	  resetTableDOM($cycler, cycler);
 	}
 
 
@@ -112,7 +112,7 @@
 			}
 		},
 		'reset': function() {
-			  resetTableDOM(this.parentNode, this.model);
+			  resetTableDOM(this.parentNode, this.cycler);
 		}
 	};
 
@@ -121,7 +121,7 @@
 		//var $table = $cycleParent.children("table");
 		var ret = Object.create(SquareCyclePrototype);
 		ret.parentNode = $parentNode;
-		ret.model = cycler;
+		ret.cycler = cycler;
 		ret.curPhase = "";
 
 		return ret;

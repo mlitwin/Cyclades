@@ -13,17 +13,17 @@
 	}
 
 	// next element is element + 1, unless we're looping at a cycle
-	function nextElement(cur, model) {
+	function nextElement(cur, cycle) {
 		var next;
-		if( cur === model.cycleStart) {
-			next = model.cycleEnd;
+		if( cur === cycle.cycleStart) {
+			next = cycle.cycleEnd;
 		} else {
 			next = cur + 1;
 		}
 
 		// arbitrary condition to ensure nextElement is a valid element.
-		if( next > model.maxIndex) {
-			next = model.maxIndex;
+		if( next > cycle.maxIndex) {
+			next = cycle.maxIndex;
 		}
 
 		return next;
@@ -84,7 +84,7 @@
 				var c0 = Math.floor(Math.random() * length / 3),
 				c1 = c0 + Math.floor(Math.random() * 2 * Math.sqrt(length)); // cycle goes from c1 -> c0
 
-				this.model =  {
+				this.cycle =  {
 						maxIndex: length - 1,
 						cycleEnd: c0,
 						cycleStart: c1,
@@ -93,11 +93,11 @@
 			},
 			nextElement: function(v) {
 				return v + 1;
-				//return nextElement(v, this.model);
+				//return nextElement(v, this.cycle);
 			},
 			reducedElement: function(v) {
-				var c0 = this.model.cycleEnd;
-				var len = this.model.cycleLength;
+				var c0 = this.cycle.cycleEnd;
+				var len = this.cycle.cycleLength;
 				if( v > c0) {
 					v = c0 + (v- c0) % len;
 				}
