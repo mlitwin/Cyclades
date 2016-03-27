@@ -48,6 +48,7 @@
         } else if (k > (c1 + 1)) {
           $td.addClass("cyclePast");
         }
+				$td.append('<div class="cellcontent"></div>');
         k++;
       }
     }

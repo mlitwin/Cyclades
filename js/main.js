@@ -133,4 +133,7 @@
     runAlgorithm(brent);
   });
 
+	impress().init();
+	$("body").removeClass("loading");
+
 })(jQuery);

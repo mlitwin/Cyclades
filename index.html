@@ -7,26 +7,63 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body class="loading">
 
-	<div>
-		<a href="https://en.wikipedia.org/wiki/Cycle_detection">Cycle Detection</a>
+	<div id="impress">
+		<div id="introstep" class="step" data-x="-1000" data-y="-1500">
+			<div class="blurb">
+				<div>Ok I was interested in learning some algorithms. The "Tortoise and hare" Cycle detection algorithms seemed cool,
+				so off to <a href="https://en.wikipedia.org/wiki/Cycle_detection">Wikipedia</a>! Read through that, and I understood.
+				</div>
+				<div>A few days later ...</div>
+			</div>
+		</div>
+
+		<div id="introstep2" class="step" data-x="-1000" data-y="-1000">
+			<p>... I couldn't really tell you why they worked. So I need to dig further into it: try to think about it on my own terms,
+			 and maybe play with an implementation.
+			</p>
+		</div>
+
+		<div id="introstep3" class="step" data-x="0" data-y="-1500">
+			<p>First, while I love abstraction, the explanation in terms of iterated functions was too abstract for me. So, a more concrete case to think
+				about: a nice linked list:
+			</p>
+			<div class="sketch_canvas" data-var="llsketch" >&nbsp;</div>
+			<p>Ok it's a <a href="https://en.wikipedia.org/wiki/Linked_list#Singly_linked_list">singly linked list</a>. You've got a pointer to the first node,
+				and each node has a pointer to the "next" node (or a sentinel for the end of the list). You can start at the first node, and next your way to the end.
+				Unless: some joker has set one of the "next" back to a previous node, in which case you're stuck in an infinte loop. This is the case the
+				Cycle Detection algorithms detect.
+			</p>
+		</div>
+
+		<div id="sketchpadstep" class="step" data-x="0" data-y="0" data-scale="2">
+			<div class="cyclecontrol">
+				<button id="cycleReset">New</button>
+				<button id="floyd">Floyd</button>
+				<button id="brent">Brent</button>
+			</div>
+			<div id="cycleSketch">&nbsp;</div>
+		</div>
+
+
+		<div id="cyclerstep" class="step" data-x="-800" data-y="-350">
+			<div id="cycler"></div>
+		</div>
+
+
 	</div>
-	<div id="cycleSketch">&nbsp;</div>
 
-
-	<button id="cycleReset">New</button>
-	<button id="floyd">Floyd</button>
-	<button id="brent">Brent</button>
-	<div id="cycler"></div>
 
 	<script src="js/jquery-2.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/cyclades.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/sketchcycle.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/squarecycle.js" type="text/javascript" charset="utf-8"></script>
+	<script charset="utf-8" type="text/javascript" src="./js/ll-sketch-json.js"></script>
 	<script charset="utf-8" type="text/javascript" src="./js/sketch-json.js"></script>
 	<script charset="utf-8" type="text/javascript" src="./js/wsp-min.js"></script>
 	<script charset="utf-8" type="text/javascript" src="./js/wsp-runner.js"></script>
+	<script src="js/impress.js"></script>
 	<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
 </body>
 

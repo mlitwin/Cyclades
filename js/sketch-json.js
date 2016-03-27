@@ -2,9 +2,9 @@ var sketch = {
   "metadata": {
     "width": 1234,
     "height": 355,
-    "wsp-version": "4.4.0-alpha",
-    "wsp-build-number": "1008",
-    "wsp-build-stamp": "sneferu.local/20160216140820",
+    "wsp-version": "4.5.0",
+    "wsp-build-number": "1012.2-r",
+    "wsp-build-stamp": "ip-10-149-70-76/20160225151925",
     "exporter-version": "6.00A3007(dev)",
     "exporter-build": "3007(dev)",
     "original-document-name": "Cycles.gsp",
@@ -1825,7 +1825,7 @@ var sketch = {
             }
           },
           "expressionType": "UniMeasure_ExprType",
-          "expression": "@0*(@1+@2)+(1-@0)*@3",
+          "expression": "round(@0*(@1+@2)+(1-@0)*@3)",
           "latentVisibility": true,
           "label": "T[cycle]",
           "style": {
@@ -1898,7 +1898,7 @@ var sketch = {
             }
           },
           "expressionType": "UniMeasure_ExprType",
-          "expression": "(@0+@1)*@2+@3*(1-@2)",
+          "expression": "round((@0+@1)*@2+@3*(1-@2))",
           "latentVisibility": true,
           "label": "H[cycle]",
           "style": {
