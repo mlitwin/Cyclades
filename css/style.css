@@ -18,6 +18,10 @@ body.loading #impress {
 	margin-bottom: 2em;
 }
 
+#cyclerstep.future {
+	display: none;
+}
+
 
 /* Cycle table styles */
 
